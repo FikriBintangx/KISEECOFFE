@@ -11,17 +11,69 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Profil Saya';
+        $data['title'] = 'Dashboard Saya';
         $data['user'] = $this->db->get_where('user_data', ['email' => $this->session->userdata('email')])->row_array();
-        $timestamp = $data['user']['date_created'];
-        $date = date('d F Y', $timestamp);
-        $data['tanggal_bergabung'] = $date;
+        
+        // Hitung total transaksi user (hanya yang paid atau awaiting verification)
+        $data['total_transaksi'] = $this->db
+            ->where('user_id', $data['user']['id'])
+            ->where_in('payment_status', ['paid', 'awaiting_verification'])
+            ->count_all_results('transaksi');
+        
+        // Hitung total belanja user
+        $total_belanja = $this->db
+            ->select_sum('total_harga')
+            ->where('user_id', $data['user']['id'])
+            ->where('payment_status', 'paid')
+            ->get('transaksi')
+            ->row();
+        $data['total_belanja'] = isset($total_belanja->total_harga) ? $total_belanja->total_harga : 0;
+        
+        // Ambil transaksi terakhir
+        $data['transaksi_terakhir'] = $this->db
+            ->where('user_id', $data['user']['id'])
+            ->order_by('created_at', 'DESC')
+            ->limit(5)
+            ->get('transaksi')
+            ->result_array();
+        
+        // Ambil menu yang paling sering dipesan
+        $this->db->select('menu.id, menu.nama, menu.gambar, COUNT(detail_transaksi.id) as jumlah_order');
+        $this->db->from('detail_transaksi');
+        $this->db->join('menu', 'menu.id = detail_transaksi.makanan_id');
+        $this->db->join('transaksi', 'transaksi.id = detail_transaksi.transaksi_id');
+        $this->db->where('transaksi.user_id', $data['user']['id']);
+        $this->db->where('transaksi.payment_status', 'paid');
+        $this->db->group_by('menu.id');
+        $this->db->order_by('jumlah_order', 'DESC');
+        $this->db->limit(3);
+        $data['menu_favorit'] = $this->db->get()->result_array();
+
+        // Hitung Tier berdasarkan jumlah transaksi
+        $total_orders = $data['total_transaksi'];
+        if ($total_orders >= 20) {
+            $data['tier'] = 'PLATINUM';
+            $data['tier_color'] = '#e5e7eb'; // Silver/Platinum color
+            $data['tier_icon'] = 'fa-gem';
+        } elseif ($total_orders >= 10) {
+            $data['tier'] = 'GOLD';
+            $data['tier_color'] = '#fbbf24'; // Gold color
+            $data['tier_icon'] = 'fa-crown';
+        } elseif ($total_orders >= 1) {
+            $data['tier'] = 'SILVER';
+            $data['tier_color'] = '#9ca3af'; // Silver color
+            $data['tier_icon'] = 'fa-medal';
+        } else {
+            $data['tier'] = 'BRONZE';
+            $data['tier_color'] = '#cd7f32'; // Bronze color
+            $data['tier_icon'] = 'fa-award';
+        }
 
         $this->load->view('layout/header', $data);
-        $this->load->view('layout/topbar');
-        $this->load->view('layout/sidebar');
-        $this->load->view('user/index', $data);
-        $this->load->view('layout/footer');
+        $this->load->view('layout/topbar', $data);
+        $this->load->view('layout/sidebar', $data);
+        $this->load->view('user/dashboard', $data);
+        $this->load->view('layout/footer', $data);
     }
 
     public function ubah()
@@ -48,23 +100,26 @@ class User extends CI_Controller
             $upload_image = $_FILES['image']['name'];
 
             if ($upload_image) {
-                // $path_file = base_url('assets/img/profile/') . $data['user']['image'];
-                // unlink($path_file);
-                $config['allowed_types'] = 'gif|jpg|png|svg';
-                $config['max_size'] = '2048';
-                $config['upload_path'] = './assets/img/profile/';
+                $config['allowed_types']    = 'gif|jpg|jpeg|png|webp|svg|bmp|avif|heic|heif';
+                $config['max_size']         = 50000; // 50MB
+                $config['upload_path']      = './assets/img/profile/';
+                $config['file_ext_tolower'] = true;
+                $config['remove_spaces']    = true;
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('image')) {
                     $gambar_lama = $data['user']['image'];
-                    if ($gambar_lama != "default.png") {
+                    if ($gambar_lama != "default.png" && file_exists(FCPATH . 'assets/img/profile/' . $gambar_lama)) {
                         unlink(FCPATH . 'assets/img/profile/' . $gambar_lama);
                     }
                     $gambar_baru = $this->upload->data('file_name');
                     $this->db->set('image', $gambar_baru);
                 } else {
-                    echo $this->upload->display_errors();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger neu-brutalism">' . strip_tags($this->upload->display_errors('', '')) . '</div>');
+                    redirect('user/ubah');
+                    return;
                 }
             }
 

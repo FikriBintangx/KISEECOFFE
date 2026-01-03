@@ -52,3 +52,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// Route untuk laporan
+$route['laporan'] = 'laporan/index';
+
+// Route untuk transaksi
+$route['transaksi/keranjang'] = 'transaksi/keranjang';
+$route['transaksi/tambah_keranjang'] = 'transaksi/tambah_keranjang';
+$route['transaksi/update_keranjang'] = 'transaksi/update_keranjang';
+$route['transaksi/hapus_item_keranjang/(:any)'] = 'transaksi/hapus_item_keranjang/$1';
+$route['transaksi/kosongkan_keranjang'] = 'transaksi/kosongkan_keranjang';
+$route['transaksi/checkout'] = 'transaksi/checkout';
+$route['transaksi/pembayaran/(:num)'] = 'transaksi/pembayaran/$1';
+$route['transaksi/upload_bukti'] = 'transaksi/upload_bukti';
+$route['transaksi/riwayat'] = 'transaksi/riwayat';
+$route['transaksi/detail/(:num)'] = 'transaksi/detail/$1';
+$route['transaksi/kelola'] = 'transaksi/kelola';
+$route['transaksi/detail_admin/(:num)'] = 'transaksi/detail_admin/$1';
+$route['transaksi/update_status'] = 'transaksi/update_status';
+
+// Route untuk payment callback (webhook)
+$route['payment/callback'] = 'transaksi/callback';
+
+// Route untuk admin transaksi
+$route['admin/transaksi'] = 'admin/transaksi/index';
+$route['admin/transaksi/detail/(:num)'] = 'admin/transaksi/detail/$1';
+$route['admin/transaksi/update_status'] = 'admin/transaksi/update_status';
+$route['admin/transaksi/verify_payment'] = 'admin/transaksi/verify_payment';

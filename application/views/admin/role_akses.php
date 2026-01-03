@@ -1,21 +1,8 @@
-<!-- Main Content -->
 <div class="main-content">
     <section class="section">
         <div class="section-header neu-brutalism-border">
             <h1><?= $title; ?></h1>
         </div>
-
-        <!-- URL -->
-        <!-- <div class="d-flex">
-            <div class=""></div>
-            <div class="ml-auto">
-                <?php $url = ''; ?>
-                <?php foreach ($segments as $segment) : ?>
-                    <?php $url .= '/' . $segment; ?>
-                    / <a href="<?= base_url($url); ?>"><?= $segment; ?></a>
-                <?php endforeach; ?>
-            </div>
-        </div> -->
 
         <?= $this->session->flashdata('message') ?>
         <div class="d-flex">

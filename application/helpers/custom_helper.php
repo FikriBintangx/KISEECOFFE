@@ -8,22 +8,35 @@ function cek_sudah_masuk()
     } else {
         // use role_id based on database
         $email = $ci->session->userdata('email');
-        $role_id = $ci->db->query("SELECT `user_data`.`role_id` FROM `user_data` WHERE `user_data`.`email` = '$email'")->row_array();
+        $role_id_query = $ci->db->query("SELECT `user_data`.`role_id` FROM `user_data` WHERE `user_data`.`email` = '$email'")->row_array();
+        $role_id = $role_id_query['role_id'];
 
-        // use role_id based on session
-        // $role_id = $ci->session->userdata('role_id');
         $menu = $ci->uri->segment(1);
 
+        // 1. Cek match di user_menu (Header Menu)
         $queryMenu = $ci->db->get_where('user_menu', ['menu' => $menu])->row_array();
-        $menu_id = $queryMenu['id'];
+        
+        $menu_id = 0;
+        if ($queryMenu) {
+            $menu_id = $queryMenu['id'];
+        } else {
+            // 2. Jika tidak ada di Header, cek di Sub Menu (Controller)
+            // Mencari menu_id berdasarkan URL controller
+            $querySubMenu = $ci->db->liKe('url', $menu, 'both')->get('user_sub_menu')->row_array();
+            if ($querySubMenu) {
+                $menu_id = $querySubMenu['menu_id'];
+            }
+        }
 
-        $userAccess = $ci->db->get_where('user_access_menu', [
-            'role_id' => $role_id['role_id'],
-            'menu_id' => $menu_id
-        ]);
+        if ($menu_id > 0) {
+            $userAccess = $ci->db->get_where('user_access_menu', [
+                'role_id' => $role_id,
+                'menu_id' => $menu_id
+            ]);
 
-        if ($userAccess->num_rows() < 1) {
-            redirect('auth/blocked');
+            if ($userAccess->num_rows() < 1) {
+                redirect('auth/blocked');
+            }
         }
     }
 }

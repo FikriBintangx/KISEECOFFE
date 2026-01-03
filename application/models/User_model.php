@@ -3,6 +3,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model
 {
+    /**
+     * Get user by email
+     * @param string $email
+     * @return array|null
+     */
+    public function find_by_email($email)
+    {
+        return $this->db->get_where('user_data', ['email' => $email])->row_array();
+    }
+
+    /**
+     * Get user by provider and provider_id
+     * @param string $provider
+     * @param string $provider_id
+     * @return array|null
+     */
+    public function find_by_provider($provider, $provider_id)
+    {
+        return $this->db->get_where('user_data', [
+            'auth_provider' => $provider,
+            'provider_id' => $provider_id
+        ])->row_array();
+    }
+
+    /**
+     * Create new user from OAuth data
+     * @param array $data
+     * @return int Insert ID
+     */
+    public function create_oauth_user($data)
+    {
+        $this->db->insert('user_data', $data);
+        return $this->db->insert_id();
+    }
+
     public function getAllUserRole()
     {
         $query = "SELECT `user_data`.`id`, `user_data`.`nama`, `email`, `user_role`.`role`

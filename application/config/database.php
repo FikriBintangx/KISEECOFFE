@@ -73,24 +73,53 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => getenv('DB_HOSTNAME'),
-	'username' => getenv('DB_USERNAME'),
-	'password' => getenv('DB_PASSWORD'),
-	'database' => getenv('DB_NAME'),
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
+// Logika Otomatis: Cek apakah jalan di Hosting atau di Local
+$is_hosting = (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'kiisecoff.ti24se1.my.id') !== false);
+
+if ($is_hosting) {
+    // === SETTINGAN DATABASE UNTUK HOSTING (cPanel) ===
+    $db['default'] = array(
+        'dsn'   => '',
+        'hostname' => 'localhost',
+        'username' => 'ti2b8143_kiisecoffee_admin', // Username dari user settingan cPanel
+        'password' => 'kiisecoffee_admin',          // Password dari user settingan cPanel
+        'database' => 'ti2b8143_kiisecoffee',       // Nama database di cPanel
+        'dbdriver' => 'mysqli',
+        'dbprefix' => '',
+        'pconnect' => FALSE,
+        'db_debug' => (ENVIRONMENT !== 'production'),
+        'cache_on' => FALSE,
+        'cachedir' => '',
+        'char_set' => 'utf8',
+        'dbcollat' => 'utf8_general_ci',
+        'swap_pre' => '',
+        'encrypt' => FALSE,
+        'compress' => FALSE,
+        'stricton' => FALSE,
+        'failover' => array(),
+        'save_queries' => TRUE
+    );
+} else {
+    // === SETTINGAN DATABASE UNTUK LOCALHOST (XAMPP) ===
+    $db['default'] = array(
+        'dsn'   => '',
+        'hostname' => 'localhost',
+        'username' => 'root',        // Username default XAMPP
+        'password' => '',            // Password default XAMPP (kosong)
+        'database' => 'kiisecoffee', // Nama database lokal
+        'dbdriver' => 'mysqli',
+        'dbprefix' => '',
+        'pconnect' => FALSE,
+        'db_debug' => TRUE,
+        'cache_on' => FALSE,
+        'cachedir' => '',
+        'char_set' => 'utf8',
+        'dbcollat' => 'utf8_general_ci',
+        'swap_pre' => '',
+        'encrypt' => FALSE,
+        'compress' => FALSE,
+        'stricton' => FALSE,
+        'failover' => array(),
+        'save_queries' => TRUE
+    );
+}

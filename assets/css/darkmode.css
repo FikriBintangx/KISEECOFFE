@@ -1,0 +1,744 @@
+/* ============================================
+   DARK MODE SYSTEM - KIISE COFFEE
+   ============================================ */
+
+:root {
+	/* LIGHT MODE (DEFAULT) */
+	--bg-primary: #f8f9fa;
+	--bg-secondary: #ffffff;
+	--bg-card: #ffffff;
+	--bg-grid: #e5e5e5;
+	--bg-navbar: #ffffff;
+	--bg-sidebar: #ffffff;
+
+	--text-primary: #000000;
+	--text-secondary: #333333;
+	--text-muted: #6c757d;
+
+	--border-color: #000000;
+	--shadow-color: #000000;
+
+	/* BRUTALISM COLORS (TETAP SAMA) */
+	--yellow: #fff200;
+	--green: #4ade80;
+	--blue: #60a5fa;
+	--pink: #f472b6;
+	--orange: #fb923c;
+
+	/* BRUTALISM EFFECTS */
+	--border-width: 3px;
+	--shadow-offset: 4px;
+}
+
+/* DARK MODE - INVERTED COLORS */
+body.dark-mode {
+	/* Background HITAM dengan Grid PUTIH */
+	--bg-primary: #121212; /* Softer black (Material Dark) */
+	--bg-secondary: #1e1e1e; /* Card bg */
+	--bg-card: #1e1e1e;
+	--bg-grid: rgba(
+		255,
+		255,
+		255,
+		0.08
+	); /* Slightly more visible but soft grid */
+	--bg-navbar: #121212;
+	--bg-sidebar: #121212;
+
+	/* Font PUTIH Soft */
+	--text-primary: #e0e0e0;
+	--text-secondary: #b0b0b0;
+	--text-muted: #757575;
+
+	/* Border & Shadow Soft */
+	--border-color: #333333;
+	--shadow-color: rgba(
+		0,
+		0,
+		0,
+		0.5
+	); /* Hitam transparan biar tidak terlalu harsh di dark mode */
+
+	/* SOFT PASTEL COLORS - Redeclare variables for dark mode */
+	--yellow: #fde047; /* Soft Pastel Yellow */
+	--green: #86efac; /* Soft Pastel Green */
+	--blue: #93c5fd; /* Soft Pastel Blue */
+	--pink: #f9a8d4; /* Soft Pastel Pink */
+	--orange: #fdba74; /* Soft Pastel Orange */
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+body {
+	background-color: var(--bg-primary) !important;
+	background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px) !important;
+	background-size: 30px 30px !important;
+	color: var(--text-primary) !important;
+	color: var(--text-primary) !important;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+body.dark-mode .section-header {
+	background-color: var(--bg-card) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+	color: var(--text-primary) !important;
+}
+
+body.dark-mode .section-header h1 {
+	color: var(--text-primary) !important;
+}
+
+/* ============================================
+   CARDS & CONTAINERS
+   ============================================ */
+
+.card,
+.neu-card,
+.brutalism-card {
+	background-color: var(
+		--bg-card
+	); /* Removed !important to allow inline colors */
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+	color: var(
+		--text-primary
+	); /* Removed !important to allow text color overrides */
+	transition: all 0.3s ease;
+}
+
+.card-header,
+.card-body,
+.card-footer {
+	background-color: transparent !important;
+	color: var(--text-primary) !important;
+	border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   NAVBAR & TOPBAR
+   ============================================ */
+
+.navbar,
+.navbar-neu,
+.main-navbar {
+	background-color: var(--bg-navbar) !important;
+	border-bottom: var(--border-width) solid var(--border-color) !important;
+	color: var(--text-primary) !important;
+}
+
+.navbar .nav-link,
+.navbar a {
+	color: var(--text-primary) !important;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+.main-sidebar {
+	background-color: var(--bg-sidebar) !important;
+	border-right: var(--border-width) solid var(--border-color) !important;
+}
+
+body.dark-mode .neu-brutalism-divider {
+	border-top-color: var(--border-color) !important;
+}
+
+.sidebar-brand,
+.sidebar-brand a {
+	color: var(--text-primary) !important;
+}
+
+/* SIDEBAR TEXT FIX - AGGRESSIVE OVERRIDE */
+/* SIDEBAR TEXT FIX - AGGRESSIVE OVERRIDE (SCOPED TO DARK MODE ONLY) */
+body.dark-mode .sidebar-menu li a {
+	color: var(--text-primary) !important;
+}
+
+/* SIDEBAR TEXT FIX - REFINED OVERRIDE */
+/* Target background and text color for the sidebar container */
+body.dark-mode .main-sidebar,
+body.dark-mode .main-sidebar .sidebar-wrapper {
+	background-color: var(--bg-sidebar) !important;
+	border-right-color: var(--border-color) !important;
+}
+
+/* Specific text coloring - DO NOT OVERRIDE ICONS DIRECTLY WITH * */
+body.dark-mode .sidebar-menu li a,
+body.dark-mode .sidebar-menu li a span,
+body.dark-mode .sidebar-header,
+body.dark-mode .sidebar-brand a {
+	color: var(--text-primary) !important;
+}
+
+/* Allow inline styles on icons to shine through, but ensure background is transparent */
+body.dark-mode .sidebar-menu li a i {
+	background-color: transparent !important;
+	/* We DO NOT set color here so inline style wins */
+}
+
+/* Active State - Soft Blue Background, Black Text */
+body.dark-mode .sidebar-menu li.active a {
+	background-color: var(--blue) !important;
+	color: #121212 !important;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+	border: 2px solid var(--border-color) !important;
+}
+
+/* Force icons in active state to be black for contrast against blue background */
+body.dark-mode .sidebar-menu li.active a i {
+	color: #121212 !important;
+}
+
+/* Menu Headers */
+body.dark-mode .menu-header {
+	color: var(--text-muted) !important;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+/* ACTIVE ITEM IN LIGHT MODE (Default Stisla/Brutalism) */
+.sidebar-menu li.active a {
+	background-color: #000000;
+	color: #ffffff;
+}
+
+/* Ensure Light Mode Icons keep their inline color unless active */
+.sidebar-menu li a i {
+	/* No override here, let inline style work */
+}
+
+/* But when active in Light Mode, maybe force white/black icon? */
+.sidebar-menu li.active a i {
+	/* color: #fff !important; */
+	/* Let's keep it colorful or force white? User asked for colorful. 
+       If background is black, colorful icons look good. 
+       Value remains inline. */
+}
+
+/* REMOVE OLD RULE IF IT EXISTS TO AVOID CONFLICT */
+
+/* ============================================
+   TABLES
+   ============================================ */
+/* Ensure colorful stat cards text is readable (Black text on pastel backgrounds) */
+.stat-card {
+	color: #000 !important;
+}
+.stat-card .stat-label,
+.stat-card .stat-number,
+.stat-card i {
+	/* If icon is white inside black box, that's fine. If text is directly on card, force black.*/
+	/* Except white text on specific cards. Let's be careful. */
+}
+
+/* Force inline background colors to persist even in dark mode if specific opacity rules existed */
+body.dark-mode .card[style*='background'] {
+	/* Bootstrap/Stisla might not use style attribute selectors but we can try to be safe */
+	opacity: 1 !important;
+}
+.table {
+	background-color: transparent !important;
+	color: var(--text-primary) !important;
+}
+
+.table thead th {
+	background-color: var(--bg-secondary) !important;
+	color: var(--text-primary) !important;
+	border-color: var(--border-color) !important;
+}
+
+.table tbody tr {
+	background-color: var(--bg-card) !important;
+	color: var(--text-primary) !important;
+	border-color: var(--border-color) !important;
+}
+
+.table-hover tbody tr:hover {
+	background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+	color: var(--text-primary) !important;
+	border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+
+.form-control,
+.search-input,
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='date'],
+select,
+textarea {
+	background-color: var(--bg-card) !important;
+	color: var(--text-primary) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+}
+
+.form-control:focus,
+.search-input:focus {
+	background-color: var(--bg-card) !important;
+	color: var(--text-primary) !important;
+	border-color: var(--yellow) !important;
+	box-shadow: 0 0 0 0.2rem rgba(255, 242, 0, 0.25) !important;
+}
+
+/* ============================================
+   BUTTONS (KEEP BRUTALISM COLORS)
+   ============================================ */
+
+.btn {
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+	transition: all 0.1s ease;
+}
+
+.btn:active {
+	transform: translate(2px, 2px);
+	box-shadow: 2px 2px 0 var(--shadow-color) !important;
+}
+
+/* KEEP BUTTON COLORS IN DARK MODE */
+.btn-warning {
+	background-color: var(--yellow) !important;
+	color: #000 !important;
+}
+
+.btn-success {
+	background-color: var(--green) !important;
+	color: #000 !important;
+}
+
+.btn-primary {
+	background-color: var(--blue) !important;
+	color: #000 !important;
+}
+
+.btn-danger {
+	background-color: #ef4444 !important;
+	color: #fff !important;
+}
+
+.btn-info {
+	background-color: var(--blue) !important;
+	color: #000 !important;
+}
+
+.btn-secondary {
+	background-color: #6c757d !important;
+	color: #fff !important;
+}
+
+/* FONT TETAP HITAM untuk elemen dengan BG KUNING di dark mode */
+body.dark-mode .btn-warning,
+body.dark-mode [style*='background: #fff200'],
+body.dark-mode [style*='background-color: #fff200'],
+body.dark-mode [style*='background:#fff200'],
+body.dark-mode [style*='background-color:#fff200'],
+body.dark-mode [style*='background: yellow'],
+body.dark-mode [style*='background-color: yellow'],
+body.dark-mode .digital-clock,
+body.dark-mode [class*='yellow'],
+body.dark-mode .bg-warning,
+body.dark-mode .alert-warning,
+body.dark-mode .badge-warning {
+	color: #000 !important; /* HITAM untuk BG KUNING */
+}
+
+/* Hover state untuk elemen yang jadi kuning */
+body.dark-mode .quick-action-btn:hover,
+body.dark-mode .dropdown-item:hover,
+body.dark-mode .btn-social:hover {
+	color: #000 !important; /* HITAM untuk BG KUNING */
+}
+
+/* FONT TETAP HITAM untuk elemen dengan BG HIJAU di dark mode */
+body.dark-mode .btn-success,
+body.dark-mode [style*='background: #4ade80'],
+body.dark-mode [style*='background-color: #4ade80'],
+body.dark-mode [style*='background:#4ade80'],
+body.dark-mode [style*='background-color:#4ade80'],
+body.dark-mode [style*='background: green'],
+body.dark-mode [style*='background-color: green'],
+body.dark-mode [class*='green'],
+body.dark-mode .bg-success,
+body.dark-mode .alert-success,
+body.dark-mode .badge-success {
+	color: #000 !important; /* HITAM untuk BG HIJAU */
+}
+
+/* FONT TETAP HITAM untuk elemen dengan BG BIRU di dark mode */
+body.dark-mode .btn-primary,
+body.dark-mode .btn-info,
+body.dark-mode [style*='background: #60a5fa'],
+body.dark-mode [style*='background-color: #60a5fa'],
+body.dark-mode [style*='background:#60a5fa'],
+body.dark-mode [style*='background-color:#60a5fa'],
+body.dark-mode [class*='blue'],
+body.dark-mode .bg-primary,
+body.dark-mode .bg-info,
+body.dark-mode .alert-primary,
+body.dark-mode .alert-info,
+body.dark-mode .badge-primary,
+body.dark-mode .badge-info {
+	color: #fff !important; /* PUTIH untuk BG BIRU */
+}
+
+/* FONT TETAP HITAM untuk elemen dengan BG PINK di dark mode */
+body.dark-mode [style*='background: #f472b6'],
+body.dark-mode [style*='background-color: #f472b6'],
+body.dark-mode [style*='background:#f472b6'],
+body.dark-mode [style*='background-color:#f472b6'],
+body.dark-mode [class*='pink'] {
+	color: #fff !important; /* PUTIH untuk BG PINK */
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+
+.badge {
+	border: 2px solid var(--border-color) !important;
+}
+
+/* ============================================
+   MODALS
+   ============================================ */
+
+.modal-content {
+	background-color: var(--bg-card) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-header,
+.modal-footer {
+	border-color: var(--border-color) !important;
+}
+
+.modal-title {
+	color: var(--text-primary) !important;
+}
+
+/* ============================================
+   ALERTS
+   ============================================ */
+
+.alert {
+	border: var(--border-width) solid var(--border-color) !important;
+	color: var(--text-primary) !important;
+}
+
+/* ============================================
+   DROPDOWNS
+   ============================================ */
+
+.dropdown-menu {
+	background-color: var(--bg-card) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+}
+
+.dropdown-item {
+	color: var(--text-primary) !important;
+}
+
+.dropdown-item:hover {
+	background-color: var(--yellow) !important;
+	color: #000 !important;
+}
+
+/* ============================================
+   SEARCH RESULTS
+   ============================================ */
+
+.search-result {
+	background-color: var(--bg-card) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+}
+
+.search-result-item {
+	color: var(--text-primary) !important;
+	border-bottom: 1px solid var(--border-color) !important;
+}
+
+.search-result-item:hover {
+	background-color: var(--yellow) !important;
+	color: #000 !important;
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+
+.section-header h1,
+.section-header h2,
+.section-header h3,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--text-primary) !important;
+}
+
+/* ============================================
+   TEXT COLORS
+   ============================================ */
+
+.text-muted {
+	color: var(--text-muted) !important;
+}
+
+p,
+span,
+div {
+	color: var(--text-primary);
+}
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+
+.dark-mode-toggle {
+	background-color: var(--bg-card);
+	border: var(--border-width) solid var(--border-color);
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.1s ease;
+	font-size: 1.3rem;
+	color: var(--text-primary);
+}
+
+.dark-mode-toggle:hover {
+	background-color: var(--yellow);
+	color: #000;
+}
+
+.dark-mode-toggle:active {
+	transform: translate(2px, 2px);
+	box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+/* ============================================
+   SPECIFIC COMPONENTS
+   ============================================ */
+
+/* Stats Cards */
+.stat-card {
+	background-color: var(--bg-card) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+}
+
+/* Quick Actions */
+.quick-action-btn {
+	background-color: var(--bg-card) !important;
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+	color: var(--text-primary) !important;
+}
+
+.quick-action-btn:hover {
+	background-color: var(--yellow) !important;
+	color: #000 !important;
+}
+
+/* Digital Clock */
+.digital-clock {
+	background-color: var(--yellow) !important;
+	color: #000 !important;
+	border: var(--border-width) solid var(--border-color) !important;
+}
+
+/* Profile Image */
+.profile-img {
+	border: var(--border-width) solid var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color) !important;
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+
+* {
+	transition: background-color 0.3s ease, color 0.3s ease,
+		border-color 0.3s ease;
+}
+
+/* Exclude transitions for buttons and interactive elements */
+button,
+.btn,
+a {
+	transition: all 0.1s ease !important;
+}
+
+/* ============================================
+   DARK MODE ENHANCEMENTS
+   ============================================ */
+
+/* Grid PUTIH tipis di dark mode */
+body.dark-mode {
+	background-image: linear-gradient(var(--bg-grid) 0.5px, transparent 0.5px),
+		linear-gradient(90deg, var(--bg-grid) 0.5px, transparent 0.5px) !important;
+}
+
+/* Better shadow for cards in dark mode */
+body.dark-mode .card,
+body.dark-mode .neu-card,
+body.dark-mode .brutalism-card {
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Improve button shadows in dark mode */
+body.dark-mode .btn {
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+body.dark-mode .btn:active {
+	box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Status cards with better contrast */
+body.dark-mode .card[style*='background'] {
+	filter: brightness(0.9);
+}
+
+/* Improve table readability */
+body.dark-mode .table {
+	border-color: var(--border-color) !important;
+}
+
+body.dark-mode .table thead th {
+	background-color: #252525 !important;
+	border-color: var(--border-color) !important;
+}
+
+body.dark-mode .table tbody tr {
+	border-color: var(--border-color) !important;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+	background-color: #252525 !important;
+}
+
+/* Improve form inputs in dark mode */
+body.dark-mode .form-control,
+body.dark-mode .search-input,
+body.dark-mode input[type='text'],
+body.dark-mode input[type='email'],
+body.dark-mode input[type='password'],
+body.dark-mode input[type='number'],
+body.dark-mode input[type='date'],
+body.dark-mode select,
+body.dark-mode textarea {
+	background-color: #252525 !important;
+	border-color: var(--border-color) !important;
+}
+
+body.dark-mode .form-control::placeholder,
+body.dark-mode .search-input::placeholder {
+	color: #808080 !important;
+}
+
+/* Improve dropdown in dark mode */
+body.dark-mode .dropdown-menu {
+	background-color: #252525 !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Improve modal in dark mode */
+body.dark-mode .modal-content {
+	background-color: #252525 !important;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Better search results in dark mode */
+body.dark-mode .search-result {
+	background-color: #252525 !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Improve sidebar in dark mode */
+body.dark-mode .sidebar-menu li a:hover {
+	background-color: #252525 !important;
+}
+
+/* Better stats cards in dark mode */
+body.dark-mode .stat-card {
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Improve quick action buttons in dark mode */
+body.dark-mode .quick-action-btn {
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Better profile image border in dark mode */
+body.dark-mode .profile-img {
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Improve alert visibility in dark mode */
+body.dark-mode .alert {
+	background-color: #252525 !important;
+}
+
+/* Better badge contrast in dark mode */
+body.dark-mode .badge {
+	border-color: var(--border-color) !important;
+}
+
+/* Improve section header visibility */
+body.dark-mode .section-header {
+	border-color: var(--border-color) !important;
+}
+
+/* Better footer in dark mode */
+body.dark-mode .footer-neu,
+body.dark-mode footer {
+	background-color: var(--bg-navbar) !important;
+	border-top-color: var(--border-color) !important;
+}
+
+/* Improve social buttons in dark mode */
+body.dark-mode .btn-social {
+	background-color: #252525 !important;
+	border-color: var(--border-color) !important;
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0
+		rgba(255, 255, 255, 0.15) !important;
+}
+
+body.dark-mode .btn-social:hover {
+	background-color: var(--yellow) !important;
+	color: #000 !important;
+}

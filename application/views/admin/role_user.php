@@ -1,4 +1,3 @@
-<!-- Main Content -->
 <div class="main-content">
     <section class="section">
         <div class="section-header neu-brutalism-border">
@@ -12,11 +11,11 @@
             <table class="table table-hover table-bordered neu-brutalism-border display" id="myTable">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-dark">#</th>
-                        <th scope="col" class="text-dark">Nama</th>
-                        <th scope="col" class="text-dark">Email</th>
-                        <th scope="col" class="text-dark">Role</th>
-                        <th scope="col" class="text-dark">Aksi</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +39,11 @@
 </section>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="modalRoleUserUbah" tabindex="-1" role="dialog" aria-labelledby="modalRoleUserUbahLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content neu-brutalism-border">
             <div class="modal-header">
-                <h5 class="modal-title modal-ubah text-dark" id="newModalRoleUserUbah">Ubah Role</h5>
+                <h5 class="modal-title modal-ubah" id="newModalRoleUserUbah">Ubah Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

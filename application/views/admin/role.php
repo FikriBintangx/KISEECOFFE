@@ -1,4 +1,3 @@
-<!-- Main Content -->
 <div class="main-content">
     <section class="section">
         <div class="section-header neu-brutalism-border">
@@ -14,9 +13,9 @@
             <table class="table table-hover table-bordered neu-brutalism-border display" id="myTable">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-dark">#</th>
-                        <th scope="col" class="text-dark">Role</th>
-                        <th scope="col" class="text-dark">Aksi</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +39,11 @@
 </section>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="modalRoleBaru" tabindex="-1" role="dialog" aria-labelledby="modalRoleBaruLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content neu-brutalism-border">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="newModalRoleBaru">Tambah Role Baru</h5>
+                <h5 class="modal-title" id="newModalRoleBaru">Tambah Role Baru</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -68,12 +66,11 @@
     </div>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="modalRoleUbah" tabindex="-1" role="dialog" aria-labelledby="modalRoleUbahLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content neu-brutalism-border">
             <div class="modal-header">
-                <h5 class="modal-title modal-ubah text-dark" id="newModalRoleUbah">Ubah Role</h5>
+                <h5 class="modal-title modal-ubah" id="newModalRoleUbah">Ubah Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
